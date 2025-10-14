@@ -1,0 +1,51 @@
+/* Navbar estilo académico, similar a HeaderAuth */
+.navbar {
+	width: 100vw;
+	top: 0;
+	left: 0;
+	background: var(--azul-muy-claro);
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.7rem 0;
+	box-shadow: 0 2px 10px #1a237e22;
+	min-height: 64px;
+	position: fixed;
+	z-index: 1000;
+}
+
+.navbar-left {
+	display: flex;
+  	align-items: center
+}
+.navbar-left__logo {
+	display: flex;
+	align-items: center;
+	gap: 15px;
+	text-decoration: none;
+	color: inherit;
+	transition: var(--transition);
+	padding: 8px 12px;
+	border-radius: 8px;
+}
+
+.navbar__links {
+	display: flex;
+	gap: 18px;
+	align-items: center;
+	margin-right: 2rem;
+}
+
+.navbar__link {
+	color: white;
+	text-decoration: none;
+	font-weight: 500;
+	font-size: 1.05rem;
+	padding: 0.3rem 0.7rem;
+	border-radius: 4px;
+	transition: background 0.2s;
+}
+.navbar__link:hover {
+	background: var(--azul-hover, #1565c0);
+}

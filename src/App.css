@@ -1,8 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Paleta de azules UTN */
+:root {
+  --azul-oscuro: #1c2261;
+  --azul-principal: #091465;
+  --azul-secundario: #3949ab;
+  --azul-claro: #5c6bc0;
+  --azul-muy-claro: #e3eafc;
+  --azul-acento: #1976d2;
+  --azul-hover: #1565c0;
+  --azul-borde: #90caf9;
+  --azul-texto: #0d133d;
+  --color-texto: #0d133d;
+}
+
 #root {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  margin: 0;
+  padding: 0;
   text-align: center;
+  font-family: 'Roboto', sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
 }
 
 .logo {
@@ -17,6 +46,8 @@
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
+
+
 
 @keyframes logo-spin {
   from {
@@ -35,8 +66,12 @@
 
 .card {
   padding: 2em;
+  background: white;
+  border: 1px solid var(--azul-borde);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px #1a237e0a;
 }
 
 .read-the-docs {
-  color: #888;
+  color: var(--azul-claro);
 }

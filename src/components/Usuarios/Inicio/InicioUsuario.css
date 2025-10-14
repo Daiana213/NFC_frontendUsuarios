@@ -1,0 +1,120 @@
+.inicio-container {
+  margin: 2rem 0;
+  text-align: center;
+  padding: 2rem 1rem;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.inicio-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: #2d3e50;
+  margin-bottom: 0.8rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.inicio-subtitle {
+  font-size: 1.1rem;
+  margin: 0.5rem 0 1.2rem 0;
+  color: #34495e;
+  font-weight: 400;
+  line-height: 1.5;
+}
+
+.inicio-description {
+  color: #7f8c8d;
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+  line-height: 1.4;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.quick-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  flex-wrap: wrap;
+  margin-top: 1.5rem;
+}
+
+.quick-btn {
+  background: linear-gradient(135deg, #2d3e50 0%, #34495e 100%);
+  color: white;
+  text-decoration: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 10px;
+  font-weight: 500;
+  font-size: 1rem;
+  margin: 0.2rem 0;
+  transition: all 0.3s ease;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: none;
+  cursor: pointer;
+  min-width: 140px;
+  text-align: center;
+}
+
+.quick-btn:hover {
+  background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  color: white;
+  text-decoration: none;
+}
+
+.quick-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.quick-btn:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .inicio-container {
+    margin: 1rem 0;
+    padding: 1.5rem 1rem;
+  }
+  
+  .inicio-title {
+    font-size: 1.8rem;
+  }
+  
+  .inicio-subtitle {
+    font-size: 1rem;
+  }
+  
+  .quick-actions {
+    gap: 0.8rem;
+  }
+  
+  .quick-btn {
+    padding: 0.7rem 1.2rem;
+    font-size: 0.9rem;
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 480px) {
+  .inicio-title {
+    font-size: 1.5rem;
+  }
+  
+  .quick-actions {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .quick-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}

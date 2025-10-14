@@ -1,0 +1,285 @@
+.header-auth {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  z-index: 1000;
+  background: var(--azul-muy-claro);
+  border-bottom: 3px solid var(--header-border);
+  box-shadow: var(--header-shadow);
+  min-height: 70px;
+  transition: var(--transition);
+}
+
+/* Contenedor principal del header */
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  height: 70px;
+  box-sizing: border-box;
+}
+
+/* Sección izquierda del header */
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+/* Logo principal */
+.header-auth__logo {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  text-decoration: none;
+  color: inherit;
+  transition: var(--transition);
+  padding: 8px 12px;
+  border-radius: 8px;
+}
+
+.header-auth__logo:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-1px);
+}
+
+/* Contenedor del logo */
+.logo-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-auth__logo-img {
+  height: 45px;
+  width: 100%;
+  object-fit: cover;
+  transition: var(--transition);
+}
+
+.header-auth__logo:hover .header-auth__logo-img {
+  border-color: var(--accent-blue);
+  transform: scale(1.05);
+}
+
+/* Contenedor del texto del logo */
+.logo-text-container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.header-auth__logo-text {
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--text-primary);
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+}
+
+.header-auth__logo-subtitle {
+  font-weight: 400;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  letter-spacing: 0.3px;
+  opacity: 0.9;
+}
+
+/* Navegación del header */
+.header-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* Enlaces de navegación */
+.header-auth__link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 10px 16px;
+  border-radius: 8px;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  letter-spacing: 0.3px;
+}
+
+.header-auth__link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.5s;
+}
+
+.header-auth__link:hover::before {
+  left: 100%;
+}
+
+/* Estilos específicos para cada enlace */
+.login-link {
+  background: rgba(49, 130, 206, 0.1);
+  border: 1px solid rgba(49, 130, 206, 0.3);
+}
+
+.login-link:hover {
+  background: rgba(49, 130, 206, 0.2);
+  border-color: var(--accent-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+}
+
+.register-link {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.register-link:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Iconos de los enlaces */
+.link-icon {
+  font-size: 1rem;
+  opacity: 0.8;
+  transition: var(--transition);
+}
+
+.header-auth__link:hover .link-icon {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Espaciador para el contenido */
+.header-auth-spacer {
+  height: 70px;
+  width: 100%;
+}
+
+/* Responsive para tablets */
+@media (max-width: 768px) {
+  .header-container {
+    padding: 0 1.5rem;
+  }
+  
+  .header-auth__logo-text {
+    font-size: 1.2rem;
+  }
+  
+  .header-auth__logo-subtitle {
+    font-size: 0.8rem;
+  }
+  
+  .header-auth__logo-img {
+    height: 40px;
+    width: 40px;
+  }
+  
+  .nav-links {
+    gap: 8px;
+  }
+  
+  .header-auth__link {
+    padding: 8px 12px;
+    font-size: 0.9rem;
+  }
+  
+  .link-icon {
+    font-size: 0.9rem;
+  }
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+  .header-container {
+    padding: 0 1rem;
+  }
+  
+  .header-auth__logo {
+    gap: 10px;
+  }
+  
+  .header-auth__logo-text {
+    font-size: 1.1rem;
+  }
+  
+  .header-auth__logo-subtitle {
+    display: none;
+  }
+  
+  .header-auth__logo-img {
+    height: 35px;
+    width: 35px;
+  }
+  
+  .nav-links {
+    gap: 6px;
+  }
+  
+  .header-auth__link {
+    padding: 6px 10px;
+    font-size: 0.85rem;
+  }
+  
+  .header-auth__link span:last-child {
+    display: none;
+  }
+  
+  .link-icon {
+    font-size: 1rem;
+  }
+}
+
+/* Animaciones de entrada */
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.header-auth {
+  animation: slideInDown 0.6s ease-out;
+}
+
+/* Efecto de scroll (opcional) */
+.header-auth.scrolled {
+  background: rgba(26, 54, 93, 0.95);
+  backdrop-filter: blur(15px);
+}
+
+/* Estados de focus para accesibilidad */
+.header-auth__link:focus {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+.header-auth__logo:focus {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
