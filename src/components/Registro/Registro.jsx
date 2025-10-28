@@ -55,11 +55,17 @@ export default function Registro() {
 		}
 
 		try {
-			const res = await fetch('http://localhost:3000/api/usuarios', {
-				method: 'POST',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(form)
-			});
+		// Preparar los datos para enviar, asegurando que legajo sea null para tipos de usuario que no lo requieren
+		const dataToSend = { ...form };
+		if (!['Cursante', 'Docente', 'No Docente'].includes(form.tipo_usuario)) {
+			dataToSend.legajo = null;
+		}
+		
+		const res = await fetch('http://localhost:3000/api/usuarios', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify(dataToSend)
+		});
 			const data = await res.json();
 			if (res.ok) {
 				setMensaje('Usuario registrado correctamente');
@@ -215,9 +221,9 @@ export default function Registro() {
 									onChange={handleChange}
 								>
 									<option value="">Seleccionar...</option>
-									<option value="M">Masculino</option>
-									<option value="F">Femenino</option>
-									<option value="O">Otro</option>
+									<option value="Masculino">Masculino</option>
+									<option value="Femenino">Femenino</option>
+									<option value="No binario">No binario</option>
 								</select>
 							</div>
 							{(form.tipo_usuario === 'Cursante' || form.tipo_usuario === 'Docente' || form.tipo_usuario === 'No Docente') && (

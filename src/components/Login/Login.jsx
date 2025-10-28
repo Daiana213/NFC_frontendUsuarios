@@ -9,29 +9,46 @@ export default function Login() {
   const [contrasena, setContrasena] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [usuario, setUsuario] = useState(null);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setLoading(true);
-    setUsuario(null);
+
+    
     try {
-      const res = await fetch(`http://localhost:3000/api/usuarios/id_usuario/${id_usuario}`);
-      const data = await res.json();
+      const res = await fetch('http://localhost:3000/api/usuarios/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id_usuario, contrasena })
+      });
+            
       if (res.ok) {
-        setUsuario(data);
-        if (data && data.nombre_completo) {
-          localStorage.setItem('nombre_usuario', data.nombre_completo);
+        const responseData = await res.json();
+        console.log(responseData);
+        // Tu backend devuelve { message, data: usuario }
+        const usuario = responseData;
+        
+        if (usuario && usuario.nombre_completo) {
+          localStorage.setItem("nombre", usuario.nombre_completo);
+          navigate("/inicio");
+        } else {
+          setError('Credenciales inválidas');
+          setLoading(false);
         }
-        navigate('/inicio');
       } else {
-        setError(data.error || 'No se encontró el usuario');
+        const errorData = await res.json().catch(() => ({}));
+        setError(errorData.error || 'Credenciales inválidas');
+        setLoading(false);
       }
     } catch (err) {
-      setError('Error de conexión con el servidor');
-    } finally {
+      if (err.name === 'AbortError') {
+        setError('La solicitud tardó demasiado. Verifica que el backend esté corriendo en localhost:3000');
+      } else {
+        console.error('Error en login:', err);
+        setError('Error de conexión con el servidor');
+      }
       setLoading(false);
     }
   };

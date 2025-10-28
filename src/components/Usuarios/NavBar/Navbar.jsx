@@ -1,13 +1,10 @@
 import { Link } from 'react-router-dom';
 import './Navbar.css';
-import Header from '../NavBar/Navbar';
-import Footer from '../../Footer/Footer';
 import Logo from '../../../assets/LogoUTN.png';
 
 export default function Navbar() {
   return (
   <main>
-    <Header />
       <nav className="navbar">
       <div className="navbar-left">
         <Link to="/inicio" className="navbar__logo">
@@ -23,7 +20,6 @@ export default function Navbar() {
         <Link to="/perfil" className="navbar__link">Perfil</Link>
       </div>
     </nav>
-    <Footer />
   </main>
   
   );
