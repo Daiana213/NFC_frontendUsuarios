@@ -28,12 +28,17 @@ export default function Registro() {
 		legajo: '',
 		contrasena: ''
 	});
+	const [confirmContrasena, setConfirmContrasena] = useState('');
 	const [mensaje, setMensaje] = useState('');
 	const [error, setError] = useState('');
 	const [loading, setLoading] = useState(false);
 
 	const handleChange = (e) => {
 		const { name, value } = e.target;
+		if (name === 'confirmContrasena') {
+			setConfirmContrasena(value);
+			return;
+		}
 		
 		if (name === 'tipo_usuario' && !['Cursante', 'Docente', 'No Docente'].includes(value)) {
 			setForm({ ...form, [name]: value, legajo: '' });
@@ -50,6 +55,18 @@ export default function Registro() {
 		
 		if (!form.id_usuario || !form.nombre_completo || !form.tipo_usuario) {
 			setError('Los campos DNI, Nombre completo y Tipo de usuario son obligatorios');
+			setLoading(false);
+			return;
+		}
+
+		// Validar contraseña y confirmación
+		if (!form.contrasena || !confirmContrasena) {
+			setError('Debes ingresar y confirmar la contraseña');
+			setLoading(false);
+			return;
+		}
+		if (form.contrasena !== confirmContrasena) {
+			setError('Las contraseñas no coinciden');
 			setLoading(false);
 			return;
 		}
@@ -83,6 +100,7 @@ export default function Registro() {
 					legajo: '',
 					contrasena: ''
 				});
+				setConfirmContrasena('');
 			} else {
 				setError(data.error || 'Error al registrar usuario');
 			}
@@ -241,17 +259,30 @@ export default function Registro() {
 						</div>
 
 						<div className="form-section single-column">
-							<div className="form-group">
-								<label className="form-label">Contraseña</label>
-								<input 
-									className="form-input"
-									name="contrasena" 
-									type="password" 
-									value={form.contrasena} 
-									onChange={handleChange} 
-									placeholder="Contraseña opcional"
-								/>
-							</div>
+					<div className="form-group">
+						<label className="form-label required">Contraseña</label>
+						<input 
+							className="form-input"
+							name="contrasena" 
+							type="password" 
+							value={form.contrasena} 
+							onChange={handleChange} 
+							placeholder="Contraseña"
+							required
+						/>
+					</div>
+					<div className="form-group">
+						<label className="form-label required">Confirmar Contraseña</label>
+						<input 
+							className="form-input"
+							name="confirmContrasena" 
+							type="password" 
+							value={confirmContrasena} 
+							onChange={handleChange} 
+							placeholder="Repite la contraseña"
+							required
+						/>
+					</div>
 						</div>
 
 						<button type="submit" disabled={loading} className="registro-button">

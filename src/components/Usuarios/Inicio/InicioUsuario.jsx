@@ -22,10 +22,12 @@ export default function InicioUsuario() {
         <div className="inicio-description">
           Aquí podés consultar la disponibilidad de espacios, el uso de salas y tus préstamos activos.
         </div>
+        <div className="turno-cta">
+          <Link to="/turno" className="turno-btn">Solicitud de Turno</Link>
+        </div>
         <div className="quick-actions">
           <Link to="/disponibilidad" className="quick-btn">Disponibilidad</Link>
           <Link to="/prestamos" className="quick-btn">Mis préstamos</Link>
-          <Link to="/tarjeta" className="quick-btn">Mi tarjeta</Link>
           <Link to="/perfil" className="quick-btn">Mi perfil</Link>
           <Link to="/notificaciones" className="quick-btn">Notificaciones</Link>
         </div>

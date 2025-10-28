@@ -25,13 +25,13 @@ export default function Login() {
       });
             
       if (res.ok) {
-        const responseData = await res.json();
-        console.log(responseData);
-        // Tu backend devuelve { message, data: usuario }
-        const usuario = responseData;
-        
+        const usuario = await res.json();
+        console.log(usuario);
         if (usuario && usuario.nombre_completo) {
           localStorage.setItem("nombre", usuario.nombre_completo);
+          // Guardar id para que Perfil pueda cargar datos
+          if (usuario.id_usuario) localStorage.setItem("id_usuario", String(usuario.id_usuario));
+          if (usuario.tipo_usuario) localStorage.setItem("tipo_usuario", String(usuario.tipo_usuario));
           navigate("/inicio");
         } else {
           setError('Credenciales inválidas');

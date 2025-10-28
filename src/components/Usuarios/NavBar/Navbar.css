@@ -49,3 +49,9 @@
 .navbar__link:hover {
 	background: var(--azul-hover, #1565c0);
 }
+
+/* Espaciador para compensar el header fijo */
+.navbar-spacer {
+	height: 64px;
+	width: 100%;
+}

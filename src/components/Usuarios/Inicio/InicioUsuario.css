@@ -33,6 +33,27 @@
   margin-right: auto;
 }
 
+.turno-cta {
+  margin: 1.5rem 0 2rem 0;
+}
+
+.turno-btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #ff7a18 0%, #af002d 100%);
+  color: #ffffff;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow: 0 10px 24px rgba(175, 0, 45, 0.35);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.turno-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 32px rgba(175, 0, 45, 0.45);
+}
+
 .quick-actions {
   display: flex;
   justify-content: center;
