@@ -15,8 +15,8 @@ export default function Navbar() {
       </div>
       <div className="navbar__links">
         <Link to="/disponibilidad" className="navbar__link">Disponibilidad</Link>
-        <Link to="/prestamos" className="navbar__link">Préstamos</Link>
         <Link to="/perfil" className="navbar__link">Perfil</Link>
+        <Link to="/login" className="navbar__link">Cerrar Sesión</Link>
       </div>
     </nav>
     <div className="navbar-spacer" />

@@ -3,7 +3,7 @@ import { FaFacebookF, FaInstagram, FaEnvelope, FaMapMarkerAlt, FaPhone, FaGlobe 
 
 export default function Footer() {
   return (
-    <footer className="main-footer">
+    <footer className="footer">
       <div className="footer-content">
         <div className="footer-brand">
           <h3 className="footer-title">Biblioteca UTN</h3>

@@ -12,42 +12,102 @@
   --azul-borde: #90caf9;
   --azul-texto: #0d133d;
   --color-texto: #0d133d;
+  
+  /* Variables adicionales para compatibilidad */
+  --primary-color: #091465;
+  --secondary-color: #3949ab;
+  --accent-color: #1976d2;
+  --text-primary: #0d133d;
+  --text-secondary: #5c6bc0;
+  --color-primario: #091465;
+  --color-texto-secundario: #3949ab;
+  --color-texto-terciario: #5c6bc0;
+  --color-fondo: #ffffff;
+  --color-borde: #90caf9;
+  --color-texto-inverso: #ffffff;
+  --color-primario-claro: #1976d2;
+  
+  /* Espaciado */
+  --espaciado-xs: 4px;
+  --espaciado-sm: 8px;
+  --espaciado-md: 16px;
+  --espaciado-lg: 24px;
+  --espaciado-xl: 32px;
+  
+  /* Transiciones */
+  --transicion-rapida: 0.15s ease;
+  --transicion-normal: 0.3s ease;
+  --transition: 0.3s ease;
+  
+  /* Sombras */
+  --sombra-media: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --sombra-fuerte: 0 8px 24px rgba(0, 0, 0, 0.2);
+  --sombra-elevada: 0 12px 32px rgba(0, 0, 0, 0.25);
+  --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.1);
+  --header-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  /* Bordes */
+  --radio-sm: 4px;
+  --radio-md: 8px;
+  --radio-lg: 12px;
+  --radio-completo: 50%;
+  --header-border: #90caf9;
+  
+  /* Z-index */
+  --z-fixed: 1000;
 }
 
-#root {
-  max-width: 1280px;
+* {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  text-align: center;
-  font-family: 'Roboto', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   padding: 0;
+  font-family: 'Roboto', sans-serif;
+  color: var(--color-texto);
+  background-color: var(--color-fondo);
+  overflow-x: hidden;
+  width: 100%;
+}
+
+#root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 main {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  justify-content: space-between;
 }
 
+/* Estilos de logo (si los necesitas) */
 .logo {
   height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+  filter: drop-shadow(0 0 2em var(--azul-claro));
 }
+
 .logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  filter: drop-shadow(0 0 2em var(--azul-claro));
 }
-
-
 
 @keyframes logo-spin {
   from {
@@ -64,14 +124,73 @@ main {
   }
 }
 
+/* Card genérico */
 .card {
   padding: 2em;
   background: white;
   border: 1px solid var(--azul-borde);
   border-radius: 10px;
-  box-shadow: 0 2px 8px #1a237e0a;
+  box-shadow: 0 2px 8px rgba(26, 35, 126, 0.04);
 }
 
 .read-the-docs {
   color: var(--azul-claro);
+}
+
+/* Links */
+a {
+  color: var(--azul-texto);
+  text-decoration: none;
+  transition: color var(--transicion-normal);
+}
+
+a:hover {
+  color: var(--color-texto-inverso);
+}
+
+/* Eliminar márgenes por defecto de headings */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* Eliminar márgenes de párrafos */
+p {
+  margin: 0;
+}
+
+/* Botones base */
+button {
+  font-family: 'Roboto', sans-serif;
+  border: none;
+  cursor: pointer;
+  transition: all var(--transicion-normal);
+}
+
+button:focus {
+  outline: 2px solid var(--azul-acento);
+  outline-offset: 2px;
+}
+
+/* Inputs base */
+input, textarea, select {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Scrollbar personalizado (opcional) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--azul-muy-claro);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--azul-claro);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--azul-secundario);
 }

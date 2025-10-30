@@ -4,7 +4,7 @@
 	top: 0;
 	left: 0;
 	background: var(--azul-muy-claro);
-	color: white;
+	color: var(--color-texto);
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
@@ -35,22 +35,14 @@
 	gap: 18px;
 	align-items: center;
 	margin-right: 2rem;
-}
-
-.navbar__link {
-	color: white;
+	color: black;
 	text-decoration: none;
 	font-weight: 500;
-	font-size: 1.05rem;
+	font-size: 1.5rem;
 	padding: 0.3rem 0.7rem;
 	border-radius: 4px;
-	transition: background 0.2s;
-}
-.navbar__link:hover {
-	background: var(--azul-hover, #1565c0);
 }
 
-/* Espaciador para compensar el header fijo */
 .navbar-spacer {
 	height: 64px;
 	width: 100%;

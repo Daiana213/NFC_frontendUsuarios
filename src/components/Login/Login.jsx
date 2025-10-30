@@ -23,6 +23,8 @@ export default function Login() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id_usuario, contrasena })
       });
+
+      console.log(res);
             
       if (res.ok) {
         const usuario = await res.json();
@@ -54,7 +56,7 @@ export default function Login() {
   };
 
   return (
-    <main>
+    <>
       <HeaderAuth />
       <div className="login-container">
         <h2 className="login-title">Iniciar sesión</h2>
@@ -87,7 +89,7 @@ export default function Login() {
         {error && <p className="login-error">{error}</p>}
       </div>
       <Footer />
-    </main>
+    </>
   );
 }  
 
