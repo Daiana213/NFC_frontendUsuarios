@@ -33,6 +33,30 @@
   box-shadow: 0 2px 8px rgba(57, 73, 171, 0.3);
 }
 
+/* Barra de búsqueda (alineada con Computadoras) */
+.libros-search {
+  margin: 1rem 0 1.5rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.libros-search-input {
+  width: 100%;
+  max-width: 640px;
+  padding: 14px 18px;
+  border: 2px solid rgba(57, 73, 171, 0.15);
+  border-radius: 12px;
+  font-size: 1rem;
+  background: #ffffff;
+  color: var(--azul-texto);
+}
+
+.libros-search-input:focus {
+  outline: none;
+  border-color: var(--azul-secundario);
+  box-shadow: 0 0 0 4px rgba(57, 73, 171, 0.1);
+}
+
 /* Estado de carga */
 .libros-loading {
   text-align: center;

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import Navbar from '../NavBar/Navbar';
 import Footer from '../../Footer/Footer';
 import './Libros.css';
@@ -8,6 +8,7 @@ export default function Libros() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [prestamosActivos, setPrestamosActivos] = useState([]);
+  const [query, setQuery] = useState('');
 
   const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
@@ -95,6 +96,21 @@ export default function Libros() {
     cargarDatos();
   }, [apiUrl]);
 
+  // Debounce del query y filtrado local en memoria
+  const [debouncedQuery, setDebouncedQuery] = useState('');
+  useEffect(() => {
+    const h = setTimeout(() => setDebouncedQuery(query.trim().toLowerCase()), 300);
+    return () => clearTimeout(h);
+  }, [query]);
+
+  const librosFiltrados = useMemo(() => {
+    if (!debouncedQuery) return libros;
+    return (libros || []).filter(l => {
+      const texto = `${l.titulo || ''} ${l.autor || ''} ${l.segundo_autor || ''} ${l.tercer_autor || ''} ${l.asignatura || ''} ${l.isbn || ''}`.toLowerCase();
+      return texto.includes(debouncedQuery);
+    });
+  }, [libros, debouncedQuery]);
+
   // Función para obtener imagen por defecto
   const obtenerImagen = (libro) => {
     // Usar una imagen genérica de libro
@@ -138,6 +154,15 @@ export default function Libros() {
       <Navbar />
       <section className="libros-container">
         <h2 className="libros-title">Catálogo de Libros</h2>
+        <div className="libros-search">
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Buscar por título, autor, asignatura, ISBN..."
+            className="libros-search-input"
+          />
+        </div>
         
         {error && (
           <div className="libros-error">
@@ -145,7 +170,7 @@ export default function Libros() {
           </div>
         )}
 
-        {libros.length === 0 && !loading ? (
+        {librosFiltrados.length === 0 && !loading ? (
           <div className="libros-empty">
             No hay libros disponibles en el catálogo.
             {error && (
@@ -157,9 +182,9 @@ export default function Libros() {
               Verifica en la consola del navegador (F12) para más detalles.
             </div>
           </div>
-        ) : libros.length > 0 ? (
+        ) : librosFiltrados.length > 0 ? (
           <div className="libros-grid">
-            {libros.map((libro) => (
+            {librosFiltrados.map((libro) => (
               <div key={libro.id_libro} className="libro-card">
                 <div className="libro-imagen-container">
                   <img 
