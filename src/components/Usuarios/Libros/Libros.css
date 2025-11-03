@@ -1,0 +1,244 @@
+/* Contenedor principal */
+.libros-container {
+  max-width: 1400px;
+  margin: 2.5rem auto;
+  padding: 2.5rem;
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(9, 20, 101, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(57, 73, 171, 0.1);
+}
+
+/* Título */
+.libros-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--azul-principal);
+  text-align: center;
+  margin-bottom: 3rem;
+  position: relative;
+  letter-spacing: -0.5px;
+}
+
+.libros-title::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--azul-principal), var(--azul-secundario));
+  border-radius: 2px;
+  box-shadow: 0 2px 8px rgba(57, 73, 171, 0.3);
+}
+
+/* Estado de carga */
+.libros-loading {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--azul-principal);
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+/* Mensaje de error */
+.libros-error {
+  background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%);
+  color: #721c24;
+  padding: 1rem 1.5rem;
+  border-radius: 12px;
+  border-left: 4px solid #dc3545;
+  margin-bottom: 2rem;
+  font-weight: 600;
+}
+
+/* Mensaje cuando no hay libros */
+.libros-empty {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--azul-texto);
+  font-size: 1.125rem;
+}
+
+/* Grid de libros */
+.libros-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+/* Tarjeta de libro */
+.libro-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 2px solid rgba(57, 73, 171, 0.1);
+  display: flex;
+  flex-direction: column;
+}
+
+.libro-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(57, 73, 171, 0.15);
+  border-color: var(--azul-secundario);
+}
+
+/* Contenedor de imagen */
+.libro-imagen-container {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.libro-imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.libro-card:hover .libro-imagen {
+  transform: scale(1.05);
+}
+
+/* Badge de estado */
+.libro-estado-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.estado-disponible {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: #ffffff;
+}
+
+.estado-no-disponible {
+  background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+  color: #ffffff;
+}
+
+/* Contenido de la tarjeta */
+.libro-contenido {
+  padding: 1.5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.libro-titulo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--azul-principal);
+  margin-bottom: 0.75rem;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.libro-descripcion {
+  color: var(--azul-texto);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Detalles del libro */
+.libro-detalles {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(57, 73, 171, 0.1);
+}
+
+.libro-detalle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.libro-detalle-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--azul-secundario);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.libro-detalle-value {
+  font-size: 0.875rem;
+  color: var(--azul-texto);
+  font-weight: 500;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .libros-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .libros-container {
+    padding: 1.5rem;
+    margin: 1.5rem;
+  }
+
+  .libros-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .libros-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .libro-imagen-container {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .libros-container {
+    padding: 1rem;
+    margin: 1rem;
+  }
+
+  .libros-title {
+    font-size: 1.75rem;
+  }
+
+  .libros-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .libro-contenido {
+    padding: 1.25rem;
+  }
+}
+

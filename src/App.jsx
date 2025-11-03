@@ -7,6 +7,7 @@ import InicioUsuario from './components/Usuarios/Inicio/InicioUsuario.jsx';
 import Disponibilidad from './components/Usuarios/Disponibilidad/Disponibilidad.jsx';
 import PerfilUsuario from './components/Usuarios/Perfil/PerfilUsuario.jsx';
 import Turno from './components/Usuarios/Turno/Turno.jsx';
+import Libros from './components/Usuarios/Libros/Libros.jsx';
 import './App.css';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
       <Route path="/registro" element={<Registro />} />
       <Route path="/inicio" element={<InicioUsuario/>} />
       <Route path="/disponibilidad" element={<Disponibilidad />} />
+      <Route path="/libros" element={<Libros />} />
       <Route path="/perfil" element={<PerfilUsuario />} />
       <Route path="/turno" element={<Turno />} />
     </Routes>
