@@ -15,7 +15,7 @@
 .footer-content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px var(--espaciado-lg);
+  padding: 10px var(--espaciado-lg);
   display: flex;
   justify-content: space-around;
   gap: var(--espaciado-xl);

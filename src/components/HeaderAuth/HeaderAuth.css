@@ -5,7 +5,7 @@
   width: 100vw;
   z-index: 1000;
   background: var(--azul-muy-claro);
-  border-bottom: 3px solid var(--header-border);
+  border-bottom: 1px solid rgba(57, 73, 171, 0.1);
   box-shadow: var(--header-shadow);
   min-height: 70px;
   transition: var(--transition);
@@ -21,6 +21,7 @@
   margin: 0 auto;
   height: 70px;
   box-sizing: border-box;
+  box-shadow: 0 8px 32px rgba(9, 20, 101, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 /* Sección izquierda del header */
