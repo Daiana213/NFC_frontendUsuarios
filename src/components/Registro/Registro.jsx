@@ -119,7 +119,7 @@ export default function Registro() {
 					<form onSubmit={handleSubmit} className="registro-form">
 						<div className={`form-section ${(form.tipo_usuario === 'Cursante' || form.tipo_usuario === 'Docente' || form.tipo_usuario === 'No Docente') ? 'two-columns' : 'two-columns'}`}>
 							<div className="form-group">
-								<label className="form-label required">DNI (ID Usuario)</label>
+								<label className="form-label required">DNI</label>
 								<input 
 									className="form-input"
 									name="id_usuario" 

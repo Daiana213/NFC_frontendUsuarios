@@ -29,8 +29,6 @@ export default function InicioUsuario() {
           <Link to="/disponibilidad" className="quick-btn">Disponibilidad</Link>
           <Link to="/computadoras" className="quick-btn">Computadoras</Link>
           <Link to="/libros" className="quick-btn">Catálogo de Libros</Link>
-          <Link to="/perfil" className="quick-btn">Mi perfil</Link>
-          <Link to="/notificaciones" className="quick-btn">Notificaciones</Link>
         </div>
       </section>
       <Footer />

@@ -19,7 +19,7 @@ export default function Footer() {
             </div>
             <div className="contact-item">
               <FaEnvelope className="contact-icon" />
-              <span>pasantias@sanfrancisco.utn.edu.ar</span>
+              <span>biblioteca@sanfrancisco.utn.edu.ar</span>
             </div>
             <div className="contact-item">
               <FaGlobe className="contact-icon" />
