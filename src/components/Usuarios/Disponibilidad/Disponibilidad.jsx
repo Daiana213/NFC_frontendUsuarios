@@ -1,139 +1,100 @@
-import { useState, useEffect } from 'react';
-import Header from '../NavBar/Navbar';
-import Footer from '../../Footer/Footer';
+import { useEffect, useState } from 'react';
 import './Disponibilidad.css';
+import Navbar from '../NavBar/Navbar';
+import Footer from '../../Footer/Footer';
 
-export default function Disponibilidad() {
-  const [personasEnBiblioteca, setPersonasEnBiblioteca] = useState(0);
-  const [computadorasEnUso, setComputadorasEnUso] = useState(0);
-  const [computadorasDisponibles, setComputadorasDisponibles] = useState(0);
-  const [capacidadMaxima] = useState(150); // Capacidad máxima de la biblioteca
-  const [ultimaActualizacion, setUltimaActualizacion] = useState(new Date());
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+const CAPACIDAD_MAXIMA = 55;
+const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
 
-  // Función para obtener datos de ocupación desde la API
-  const obtenerDatosOcupacion = async () => {
-    try {
-      setLoading(true);
-      
-      // Obtener computadoras
-      const responseComputadoras = await fetch('http://localhost:3000/api/computadoras');
-      const computadoras = await responseComputadoras.json();
-      
-      // Obtener préstamos activos de computadoras
-      const responsePrestamos = await fetch('http://localhost:3000/api/prestamos-computadora');
-      const prestamos = await responsePrestamos.json();
-      
-      // Calcular computadoras en uso
-      const computadorasOcupadas = prestamos.filter(prestamo => !prestamo.hora_fin).length;
-      const computadorasLibres = computadoras.length - computadorasOcupadas;
-      
-      // Simular personas en biblioteca (ya que no tenemos sistema de entradas)
-      const personasActivas = Math.floor(Math.random() * 100) + 20;
-      
-      setPersonasEnBiblioteca(personasActivas);
-      setComputadorasEnUso(computadorasOcupadas);
-      setComputadorasDisponibles(computadorasLibres);
-      setUltimaActualizacion(new Date());
-      setError(null);
-      
-    } catch (err) {
-      console.error('Error al obtener datos de ocupación:', err);
-      setError('Error al cargar datos de disponibilidad');
-      
-      // Fallback a datos simulados si hay error
-      const nuevaCantidad = Math.floor(Math.random() * 100) + 20;
-      setPersonasEnBiblioteca(nuevaCantidad);
-      setComputadorasEnUso(Math.floor(Math.random() * 20) + 5);
-      setComputadorasDisponibles(Math.floor(Math.random() * 15) + 10);
-    } finally {
-      setLoading(false);
-    }
-  };
+function Disponibilidad() {
+  const [ocupacion, setOcupacion] = useState(0);
+  const [disponible, setDisponible] = useState(0);
+  const [alerta, setAlerta] = useState(false);
+  const [cargando, setCargando] = useState(true);
 
-  // Configurar SSE para actualizaciones en tiempo real
   useEffect(() => {
-    // Cargar datos iniciales
-    obtenerDatosOcupacion();
-    
-    // Configurar SSE
-    const eventSource = new EventSource('http://localhost:3000/api/events');
-    
-    eventSource.onmessage = (event) => {
-      const data = JSON.parse(event.data);
-      if (data.type === 'ocupacion_update') {
-        obtenerDatosOcupacion();
+    const obtenerDisponibilidad = async () => {
+      try {
+        const ahora = new Date();
+        const haceTresHoras = new Date(ahora.getTime() - 3 * 60 * 60 * 1000);
+
+        const resUsuariosNFC = await fetch(`${apiUrl}/api/dashboard/personas-dentro`);
+        const usuariosNFC = await resUsuariosNFC.json();
+
+        const resTurnos = await fetch(`${apiUrl}/api/turnos`);
+        const todosTurnos = await resTurnos.json();
+        console.log('Turnos obtenidos para disponibilidad:', todosTurnos);
+
+        const turnosValidos = todosTurnos.filter(turno => {
+          if (turno.estado !== 'ingreso') return false;
+          const fechaHoraTurno = new Date(`${turno.fecha}T${turno.hora}`);
+          return fechaHoraTurno >= haceTresHoras;
+        });
+
+        console.log('Turnos válidos para ocupación:', turnosValidos);
+
+        const personasDentro = Number(usuariosNFC?.personasDentro) || 0;
+        const totalOcupacion = personasDentro + turnosValidos.length;
+        const espaciosDisponibles = CAPACIDAD_MAXIMA - totalOcupacion;
+
+        setOcupacion(totalOcupacion);
+        setDisponible(espaciosDisponibles);
+        setAlerta(totalOcupacion >= CAPACIDAD_MAXIMA * 0.8);
+        setCargando(false);
+      } catch (error) {
+        console.error('Error al obtener disponibilidad:', error);
+        setCargando(false);
       }
     };
-    
-    eventSource.onerror = (error) => {
-      console.error('Error en SSE:', error);
-      // Fallback a polling cada 30 segundos si SSE falla
-      const interval = setInterval(obtenerDatosOcupacion, 30000);
-      return () => clearInterval(interval);
-    };
-    
-    return () => {
-      eventSource.close();
-    };
+
+    obtenerDisponibilidad();
   }, []);
 
-  const porcentajeOcupacion = Math.round((personasEnBiblioteca / capacidadMaxima) * 100);
-  const espaciosDisponibles = capacidadMaxima - personasEnBiblioteca;
+  if (cargando) return <p>Cargando disponibilidad...</p>;
 
-  if (loading) {
-    return (
-      <main>
-        <Header/>
-        <div>
-          <h1>Disponibilidad de la Biblioteca</h1>
-          <p>Cargando datos de ocupación...</p>
-        </div>
-        <Footer />
-      </main>
-    );
-  }
+  const porcentaje = isFinite(ocupacion) && CAPACIDAD_MAXIMA > 0
+    ? Math.min((ocupacion / CAPACIDAD_MAXIMA) * 100, 100)
+    : 0;
 
   return (
     <main>
-      <Header/>
-      <div>
-        <h1>Disponibilidad de la Biblioteca</h1>
-        {error && (
-          <div>
-            ⚠️ {error} - Mostrando datos simulados
+      <Navbar />
+      <section className={`disponibilidad-container ${alerta ? 'alerta' : ''}`}>
+        <header className="disponibilidad-header">
+          <h1>Estado de la Biblioteca</h1>
+          <p className="subtitulo">Información en tiempo real sobre ocupación y disponibilidad</p>
+        </header>
+
+        <article className="disponibilidad-info">
+          <div className="dato">
+            <span className="etiqueta">Ocupación actual:</span>
+            <span className="valor">{ocupacion} personas</span>
           </div>
-        )}
-        <section>
-          <h2>{personasEnBiblioteca} personas en la biblioteca</h2>
-          <p>Estado: {porcentajeOcupacion < 50 ? 'Disponible' : porcentajeOcupacion < 80 ? 'Moderado' : 'Lleno'}</p>
-        </section>
-        <section>
-          <ul>
-            <li>Espacios disponibles: {espaciosDisponibles}</li>
-            <li>Ocupación: {porcentajeOcupacion}%</li>
-            <li>Computadoras libres: {computadorasDisponibles}</li>
-            <li>Computadoras en uso: {computadorasEnUso}</li>
-          </ul>
-        </section>
-        <section>
-          <h3>Nivel de ocupación</h3>
-          <p>{personasEnBiblioteca} de {capacidadMaxima} espacios ocupados</p>
-        </section>
-        <section>
-          <h3>Información importante</h3>
-          <ul>
-            <li>Los datos de computadoras se actualizan en tiempo real desde la base de datos</li>
-            <li>Los datos de personas en biblioteca son simulados (sistema de entradas no implementado)</li>
-            <li>La capacidad máxima es de {capacidadMaxima} personas</li>
-            <li>Última actualización: {ultimaActualizacion.toLocaleTimeString()}</li>
-            <li>Se recomienda llegar temprano en horarios pico (8:00-10:00 y 14:00-16:00)</li>
-            <li>Las computadoras se reservan por tiempo limitado</li>
-          </ul>
-        </section>
-      </div>
+          <div className="dato">
+            <span className="etiqueta">Espacios disponibles:</span>
+            <span className="valor">{disponible}</span>
+          </div>
+          {alerta && (
+            <div className="mensaje-alerta">
+              La biblioteca está muy concurrida
+              <span className="nota-disponibilidad">
+                Aun así, te recomendamos acercarte: puede haber espacio disponible.
+              </span>
+          </div>
+
+          )}
+        </article>
+
+        <article className="disponibilidad-barra">
+          <div className="barra">
+            <div className="ocupado" style={{ width: `${porcentaje}%` }}></div>
+          </div>
+          <p className="porcentaje">Ocupación: {porcentaje.toFixed(1)}%</p>
+        </article>
+      </section>
       <Footer />
     </main>
   );
 }
+
+export default Disponibilidad;
