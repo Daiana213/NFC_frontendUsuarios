@@ -7,6 +7,8 @@
   border-radius: 20px;
   box-shadow: 0 8px 32px rgba(9, 20, 101, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
   border: 1px solid rgba(57, 73, 171, 0.1);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .computadoras-title {
@@ -75,8 +77,10 @@
 /* Grid */
 .computadoras-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1.5rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .computadora-card {
@@ -88,6 +92,8 @@
   border: 2px solid rgba(57, 73, 171, 0.1);
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  max-width: 100%;
 }
 
 .computadora-card:hover {
@@ -153,8 +159,23 @@
 }
 
 @media (max-width: 768px) {
-  .computadoras-container { padding: 1.5rem; margin: 1.5rem; }
-  .computadora-imagen-container { height: 160px; }
+  .computadoras-container { 
+    padding: 1.5rem; 
+    margin: 1.5rem; 
+  }
+  .computadoras-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  .computadora-imagen-container { 
+    height: 160px; 
+  }
+}
+
+@media (max-width: 480px) {
+  .computadoras-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 
