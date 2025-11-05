@@ -14,6 +14,7 @@ export default function Navbar() {
         </Link>
       </div>
       <div className="navbar__links">
+        <Link to="/turno" className="navbar__link">Turnos</Link>
         <Link to="/computadoras" className="navbar__link">Computadoras</Link>
         <Link to="/libros" className="navbar__link">Catálogo de Libros</Link>
         <Link to="/disponibilidad" className="navbar__link">Disponibilidad</Link>

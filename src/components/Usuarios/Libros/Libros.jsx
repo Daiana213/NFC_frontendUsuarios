@@ -51,24 +51,24 @@ export default function Libros() {
 
       try {
         // Cargar libros
-        console.log('🔍 Intentando cargar libros desde:', `${apiUrl}/api/libros`);
+        console.log('Intentando cargar libros desde:', `${apiUrl}/api/libros`);
         const respLibros = await fetch(`${apiUrl}/api/libros`);
         
         if (!respLibros.ok) {
           const errorText = await respLibros.text();
-          console.error('❌ Error en respuesta:', respLibros.status, errorText);
+          console.error('Error en respuesta:', respLibros.status, errorText);
           throw new Error(`Error al cargar los libros: ${respLibros.status} - ${errorText}`);
         }
         
         const librosData = await respLibros.json();
-        console.log('📚 Libros recibidos:', librosData);
-        console.log('📊 Cantidad de libros:', Array.isArray(librosData) ? librosData.length : 'No es un array');
+        console.log('Libros recibidos:', librosData);
+        console.log('Cantidad de libros:', Array.isArray(librosData) ? librosData.length : 'No es un array');
         
         // Verificar que sea un array
         if (Array.isArray(librosData)) {
           setLibros(librosData);
         } else {
-          console.error('⚠️ La respuesta no es un array:', librosData);
+          console.error('La respuesta no es un array:', librosData);
           setLibros([]);
           setError('Formato de respuesta inválido del servidor');
         }
@@ -78,15 +78,15 @@ export default function Libros() {
           const respPrestamos = await fetch(`${apiUrl}/api/prestamos-libros`);
           if (respPrestamos.ok) {
             const prestamosData = await respPrestamos.json();
-            console.log('📖 Préstamos activos recibidos:', prestamosData);
+            console.log('Préstamos activos recibidos:', prestamosData);
             setPrestamosActivos(Array.isArray(prestamosData) ? prestamosData : []);
           }
         } catch (prestamoError) {
-          console.warn('⚠️ Error al cargar préstamos (no crítico):', prestamoError);
+          console.warn('Error al cargar préstamos (no crítico):', prestamoError);
           // No es crítico si falla cargar préstamos
         }
       } catch (err) {
-        console.error('❌ Error completo:', err);
+        console.error('Error completo:', err);
         setError(err.message || 'Error al cargar los libros. Verifica que el backend esté corriendo en ' + apiUrl);
       } finally {
         setLoading(false);
@@ -113,9 +113,8 @@ export default function Libros() {
 
   // Función para obtener imagen por defecto
   const obtenerImagen = (libro) => {
-    // Usar una imagen genérica de libro
-    // Puedes reemplazar esto con una imagen local o un servicio de imágenes
-    return `https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=300&h=400&fit=crop&auto=format`;
+    if (libro.portada) return libro.portada;
+    return libro.portada || 'Sin imagen';
   };
 
   // Función para obtener descripción
@@ -192,7 +191,6 @@ export default function Libros() {
                     alt={libro.titulo}
                     className="libro-imagen"
                     onError={(e) => {
-                      // Si la imagen falla, usar un placeholder
                       e.target.src = 'https://via.placeholder.com/200x300/3949ab/ffffff?text=Libro';
                     }}
                   />

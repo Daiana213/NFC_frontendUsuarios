@@ -25,11 +25,6 @@ export default function InicioUsuario() {
         <div className="turno-cta">
           <Link to="/turno" className="turno-btn">Solicitud de Turno</Link>
         </div>
-        <div className="quick-actions">
-          <Link to="/disponibilidad" className="quick-btn">Disponibilidad</Link>
-          <Link to="/computadoras" className="quick-btn">Computadoras</Link>
-          <Link to="/libros" className="quick-btn">Catálogo de Libros</Link>
-        </div>
       </section>
       <Footer />
     </main>

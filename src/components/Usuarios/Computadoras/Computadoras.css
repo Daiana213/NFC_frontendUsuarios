@@ -102,20 +102,6 @@
   border-color: var(--azul-secundario);
 }
 
-.computadora-imagen-container {
-  position: relative;
-  width: 100%;
-  height: 180px;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-  overflow: hidden;
-}
-
-.computadora-imagen {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
 .computadora-estado-badge {
   position: absolute;
   top: 12px;

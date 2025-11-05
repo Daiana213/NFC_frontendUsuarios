@@ -47,10 +47,6 @@ export default function Computadoras() {
     });
   }, [computadoras, debouncedQuery]);
 
-  const obtenerImagen = () => {
-    return `https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=640&h=360&fit=crop&auto=format`;
-  };
-
   if (loading) {
     return (
       <main>
@@ -89,16 +85,8 @@ export default function Computadoras() {
           <div className="computadoras-grid">
             {disponiblesFiltradas.map((c) => (
               <div key={c.id_computadora} className="computadora-card">
-                <div className="computadora-imagen-container">
-                  <img
-                    src={obtenerImagen()}
-                    alt={`${c.marca} ${c.modelo}`}
-                    className="computadora-imagen"
-                    onError={(e) => { e.target.src = 'https://via.placeholder.com/640x360/091465/ffffff?text=PC'; }}
-                  />
-                  <div className="computadora-estado-badge estado-disponible">Disponible</div>
-                </div>
                 <div className="computadora-contenido">
+                  <div className="computadora-estado-badge estado-disponible">Disponible</div>
                   <h3 className="computadora-titulo">{c.marca} {c.modelo}</h3>
                   <div className="computadora-detalles">
                     <div className="computadora-detalle">

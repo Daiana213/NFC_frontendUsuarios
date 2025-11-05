@@ -56,50 +56,6 @@
   box-shadow: 0 14px 32px var(--color-texto-inverso);
 }
 
-.quick-actions {
-  display: flex;
-  justify-content: center;
-  gap: 1.2rem;
-  flex-wrap: wrap;
-  margin-top: 1.5rem;
-}
-
-.quick-btn {
-  background: linear-gradient(135deg, #2d3e50 0%, #34495e 100%);
-  color: white;
-  text-decoration: none;
-  padding: 0.8rem 1.5rem;
-  border-radius: 10px;
-  font-weight: 500;
-  font-size: 1rem;
-  margin: 0.2rem 0;
-  transition: all 0.3s ease;
-  display: inline-block;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  border: none;
-  cursor: pointer;
-  min-width: 140px;
-  text-align: center;
-}
-
-.quick-btn:hover {
-  background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-  color: white;
-  text-decoration: none;
-}
-
-.quick-btn:active {
-  transform: translateY(0);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.quick-btn:focus {
-  outline: none;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.3);
-}
-
 /* Responsive design */
 @media (max-width: 768px) {
   .inicio-container {
