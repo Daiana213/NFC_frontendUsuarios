@@ -11,36 +11,57 @@ function Disponibilidad() {
   const [disponible, setDisponible] = useState(0);
   const [alerta, setAlerta] = useState(false);
   const [cargando, setCargando] = useState(true);
+  const [desglose, setDesglose] = useState({ nfc: 0, turnos: 0 });
 
   useEffect(() => {
     const obtenerDisponibilidad = async () => {
       try {
-        const ahora = new Date();
-        const haceTresHoras = new Date(ahora.getTime() - 3 * 60 * 60 * 1000);
+        // Usar SOLO el endpoint de personas-dentro que ya incluye NFC + Turnos
+        const resPersonasDentro = await fetch(`${apiUrl}/api/dashboard/personas-dentro`);
+        const dataPersonas = await resPersonasDentro.json();
+        
+        console.log('Datos de personas dentro:', dataPersonas);
 
-        const resUsuariosNFC = await fetch(`${apiUrl}/api/dashboard/personas-dentro`);
-        const usuariosNFC = await resUsuariosNFC.json();
+        // Si el endpoint devuelve desglose, usarlo, sino usar el total
+        let totalOcupacion;
+        let desgloseData = { nfc: 0, turnos: 0 };
 
-        const resTurnos = await fetch(`${apiUrl}/api/turnos`);
-        const todosTurnos = await resTurnos.json();
-        console.log('Turnos obtenidos para disponibilidad:', todosTurnos);
+        if (dataPersonas.desglose) {
+          // El endpoint ya incluye desglose
+          totalOcupacion = dataPersonas.personasDentro;
+          desgloseData = dataPersonas.desglose;
+        } else {
+          // Endpoint antiguo - solo número total
+          totalOcupacion = dataPersonas.personasDentro || 0;
+          
+          // Si necesitas el desglose, hacer consultas separadas
+          try {
+            const hoy = new Date().toISOString().split('T')[0];
+            
+            // Personas por NFC
+            const resNFC = await fetch(`${apiUrl}/api/dashboard/personas-dentro-nfc`);
+            const dataNFC = await resNFC.json();
+            desgloseData.nfc = dataNFC.personasDentro || 0;
+            
+            // Personas por turnos
+            const resTurnos = await fetch(`${apiUrl}/api/turnos?fecha=${hoy}`);
+            const turnosHoy = await resTurnos.json();
+            const turnosActivos = turnosHoy.filter(t => t.estado === 'ingreso');
+            desgloseData.turnos = turnosActivos.length;
+            
+          } catch (error) {
+            console.warn('No se pudo obtener desglose detallado:', error);
+          }
+        }
 
-        const turnosValidos = todosTurnos.filter(turno => {
-          if (turno.estado !== 'ingreso') return false;
-          const fechaHoraTurno = new Date(`${turno.fecha}T${turno.hora}`);
-          return fechaHoraTurno >= haceTresHoras;
-        });
-
-        console.log('Turnos válidos para ocupación:', turnosValidos);
-
-        const personasDentro = Number(usuariosNFC?.personasDentro) || 0;
-        const totalOcupacion = personasDentro + turnosValidos.length;
         const espaciosDisponibles = CAPACIDAD_MAXIMA - totalOcupacion;
 
         setOcupacion(totalOcupacion);
         setDisponible(espaciosDisponibles);
+        setDesglose(desgloseData);
         setAlerta(totalOcupacion >= CAPACIDAD_MAXIMA * 0.8);
         setCargando(false);
+
       } catch (error) {
         console.error('Error al obtener disponibilidad:', error);
         setCargando(false);
@@ -48,9 +69,19 @@ function Disponibilidad() {
     };
 
     obtenerDisponibilidad();
+    
+    // Actualizar cada 30 segundos
+    const intervalo = setInterval(obtenerDisponibilidad, 30000);
+    return () => clearInterval(intervalo);
   }, []);
 
-  if (cargando) return <p>Cargando disponibilidad...</p>;
+  if (cargando) return (
+    <main>
+      <Navbar />
+      <div className="cargando">Cargando disponibilidad...</div>
+      <Footer />
+    </main>
+  );
 
   const porcentaje = isFinite(ocupacion) && CAPACIDAD_MAXIMA > 0
     ? Math.min((ocupacion / CAPACIDAD_MAXIMA) * 100, 100)
@@ -80,16 +111,19 @@ function Disponibilidad() {
               <span className="nota-disponibilidad">
                 Aun así, te recomendamos acercarte: puede haber espacio disponible.
               </span>
-          </div>
-
+            </div>
           )}
         </article>
 
         <article className="disponibilidad-barra">
           <div className="barra">
-            <div className="ocupado" style={{ width: `${porcentaje}%` }}></div>
+            <div 
+              className={`ocupado ${alerta ? 'alerta' : ''}`} 
+              style={{ width: `${porcentaje}%` }}
+            ></div>
           </div>
           <p className="porcentaje">Ocupación: {porcentaje.toFixed(1)}%</p>
+          <p className="capacidad-maxima">Capacidad máxima: {CAPACIDAD_MAXIMA} personas</p>
         </article>
       </section>
       <Footer />
