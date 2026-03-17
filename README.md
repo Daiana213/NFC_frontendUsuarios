@@ -49,7 +49,7 @@ Este frontend se comunica con un backend que:
 
 🟡 En desarrollo / prototipo funcional
 
-## 📚 Contexto académico
+## Contexto académico
 
 Este proyecto fue desarrollado en el marco de la materia **Comunicación de Datos**, integrando tecnologías de hardware (NFC) y software para resolver un problema real de control de accesos.
 
