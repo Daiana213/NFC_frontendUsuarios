@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import HeaderAuth from '../HeaderAuth/HeaderAuth';
 import Footer from '../Footer/Footer';
 import './Login.css';
@@ -16,7 +16,6 @@ export default function Login() {
     setError('');
     setLoading(true);
 
-    
     try {
       const res = await fetch('http://localhost:3000/api/usuarios/login', {
         method: 'POST',
@@ -24,14 +23,10 @@ export default function Login() {
         body: JSON.stringify({ id_usuario, contrasena })
       });
 
-      console.log(res);
-            
       if (res.ok) {
         const usuario = await res.json();
-        console.log(usuario);
         if (usuario && usuario.nombre_completo) {
           localStorage.setItem("nombre", usuario.nombre_completo);
-          // Guardar id para que Perfil pueda cargar datos
           if (usuario.id_usuario) localStorage.setItem("id_usuario", String(usuario.id_usuario));
           if (usuario.tipo_usuario) localStorage.setItem("tipo_usuario", String(usuario.tipo_usuario));
           navigate("/inicio");
@@ -56,13 +51,13 @@ export default function Login() {
   };
 
   return (
-    <>
+    <main>
       <HeaderAuth />
       <div className="login-container">
-        <h2 className="login-title">Iniciar sesión</h2>
+        <h2 className="login-title">Iniciar Sesión</h2>
         <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label className="form-label">DNI:</label>
+            <label className="form-label required">DNI</label>
             <input 
               className="form-input"
               value={id_usuario} 
@@ -72,7 +67,7 @@ export default function Login() {
             />
           </div>
           <div className="form-group">
-            <label className="form-label">Contraseña:</label>
+            <label className="form-label required">Contraseña</label>
             <input 
               className="form-input"
               type="password"
@@ -83,13 +78,18 @@ export default function Login() {
             />
           </div>
           <button type="submit" disabled={loading} className="login-button">
-            {loading ? 'Buscando...' : 'Ingresar'}
+            {loading ? 'Ingresando...' : 'Iniciar Sesión'}
           </button>
         </form>
-        {error && <p className="login-error">{error}</p>}
+
+        {error && <div className="error-message">{error}</div>}
+
+        <div className="login-switch">
+          <span>¿No tienes una cuenta? </span>
+          <Link to="/registro" className="login-switch-link">Regístrate aquí</Link>
+        </div>
       </div>
       <Footer />
-    </>
+    </main>
   );
-}  
-
+}

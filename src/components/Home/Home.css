@@ -1,278 +1,203 @@
+/* Home.css - Modern Hero con imagen de fondo institucional y tarjeta glassmorphism */
+.home-page-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .home-bg {
+  position: relative;
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: calc(100vh - 147px);
-  position: relative;
-  padding: 40px 20px;
-  background-attachment: fixed;
+  flex: 1;
+  min-height: calc(100vh - 140px);
+  padding: 4rem 1.5rem;
   box-sizing: border-box;
   width: 100%;
 }
 
-/* Fondo con imagen difuminada */
+/* Fondo con degradado azul oscuro moderno sobre la foto institucional */
 .home-bg::before {
   content: "";
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   width: 100%;
   height: 100%;
-  background: url('../../assets/biblioteca-UTN.jpg') center center / cover no-repeat;
-  filter: brightness(0.6) saturate(0.8);
-  z-index: 0;
+  background:
+    linear-gradient(135deg, rgba(9, 20, 101, 0.397) 0%, rgba(18, 32, 124, 0.247) 50%, rgba(6, 14, 54, 0.92) 100%),
+    url('../../assets/biblioteca-UTN.jpg') center center / cover no-repeat;
+  filter: saturate(1.15) contrast(1.05);
+  z-index: 1;
 }
 
-/* Contenedor principal del contenido */
+/* Efecto sutil de iluminación radial */
+.home-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Contenedor central */
 .home-container {
   position: relative;
   z-index: 2;
   text-align: center;
   width: 100%;
-  max-width: 800px;
-  min-width: 320px;
-  box-sizing: border-box;
+  max-width: 820px;
   margin: 0 auto;
 }
 
-/* Contenedor principal del contenido */
+/* Tarjeta principal con efecto glassmorphic refinado */
 .home-main {
-  padding: 50px 40px;
-  position: relative;
-  margin: 0 auto;
-  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  padding: 3.5rem 3rem;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-radius: 20px;
-  box-shadow: 0 8px 32px rgba(9, 20, 101, 0.08), 0 2px 8px rgba(0, 0, 0, 0.04);
-  border: 1px solid rgba(57, 73, 171, 0.1);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3), 0 4px 16px rgba(9, 20, 101, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.8);
 }
 
-/* Contenedor del contenido interno */
 .home-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
 }
 
-/* Contenedor del logo */
-.logo-container {
-  margin-bottom: 10px;
-}
-
-.logo {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--accent-color);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-/* Título principal */
-.main-title {
-  font-size: 2.8rem;
-  font-weight: 700;
-  color: var(--primary-color);
-  margin: 0;
-  letter-spacing: 3px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Subtítulo */
-.subtitle {
-  font-size: 1.5rem;
-  font-weight: 500;
-  color: var(--secondary-color);
-  margin: 0;
-  letter-spacing: 1.5px;
-}
-
-/* Texto de bienvenida */
-.welcome-text {
-  font-size: 1.15rem;
-  color: var(--text-primary);
-  margin: 10px 0 0 0;
-  font-weight: 500;
-  line-height: 1.6;
-  max-width: 600px;
-}
-
-/* Texto descriptivo */
-.description-text {
-  font-size: 1rem;
-  color: var(--text-secondary);
-  margin: 0;
-  line-height: 1.5;
-  max-width: 500px;
-}
-
-/* Contenedor de características */
-.features {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-
-/* Item de característica */
-.feature-item {
-  display: flex;
-  flex-direction: column;
+/* Badge institucional */
+.institution-badge {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 15px;
-  background: rgba(49, 130, 206, 0.1);
+  padding: 6px 16px;
+  background-color: var(--azul-muy-claro);
+  color: var(--azul-principal);
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  margin-bottom: 1.2rem;
+  border: 1px solid rgba(57, 73, 171, 0.15);
+}
+
+.badge-icon {
+  font-size: 0.95rem;
+}
+
+/* Títulos */
+.main-title {
+  font-size: 2.75rem;
+  font-weight: 800;
+  color: var(--azul-principal);
+  margin-bottom: 0.3rem;
+  letter-spacing: 1.5px;
+  line-height: 1.15;
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--azul-secundario);
+  margin-bottom: 1.2rem;
+  letter-spacing: 0.4px;
+}
+
+.welcome-text {
+  font-size: 1.05rem;
+  color: #475569;
+  line-height: 1.65;
+  max-width: 640px;
+  margin: 0 auto 2rem auto;
+}
+
+/* Grid de características destacadas */
+.features-grid {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(57, 73, 171, 0.15);
+  width: 100%;
+}
+
+.feature-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #f1f5fd;
+  border: 1px solid rgba(57, 73, 171, 0.15);
   border-radius: 8px;
-  border: 1px solid rgba(49, 130, 206, 0.2);
-  min-width: 120px;
-  transition: all 0.3s ease;
-}
-
-.feature-item:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  background: rgba(49, 130, 206, 0.15);
-}
-
-/* Icono de característica */
-.feature-icon {
-  font-size: 1.5rem;
-  margin-bottom: 5px;
-}
-
-.feature-item span:last-child {
   font-size: 0.9rem;
-  color: var(--text-secondary);
-  font-weight: 500;
+  font-weight: 600;
+  color: var(--azul-principal);
+  transition: all 0.2s ease;
 }
 
-/* Responsive para tablets */
+.feature-pill:hover {
+  background-color: #e4edfd;
+  transform: translateY(-1px);
+}
+
+.feature-icon {
+  font-size: 1rem;
+  color: var(--azul-principal);
+}
+
+/* Responsividad */
 @media (max-width: 768px) {
   .home-bg {
-    padding: 30px 15px;
+    padding: 2.5rem 1rem;
   }
 
-  .home-container {
-    max-width: 95vw;
-    padding: 10px;
-  }
-  
   .home-main {
-    padding: 40px 25px;
+    padding: 2.5rem 1.5rem;
   }
-  
-  .main-title {
-    font-size: 2.2rem;
-    letter-spacing: 2px;
-  }
-  
-  .subtitle {
-    font-size: 1.3rem;
-  }
-  
-  .features {
-    gap: 20px;
-  }
-  
-  .feature-item {
-    min-width: 100px;
-    padding: 12px;
-  }
-}
 
-/* Responsive para móviles */
-@media (max-width: 480px) {
-  .home-bg {
-    padding: 20px 10px;
-  }
-  
-  .home-main {
-    padding: 30px 20px;
-    border-radius: 12px;
-  }
-  
   .main-title {
-    font-size: 1.9rem;
-    letter-spacing: 1px;
+    font-size: 2rem;
   }
-  
+
   .subtitle {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
   }
-  
+
   .welcome-text {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
-  
-  .description-text {
-    font-size: 0.9rem;
-  }
-  
-  .features {
+
+  .home-actions {
     flex-direction: column;
-    gap: 15px;
-    align-items: center;
-  }
-  
-  .feature-item {
     width: 100%;
-    max-width: 200px;
-    flex-direction: row;
-    justify-content: flex-start;
-    gap: 15px;
+    gap: 12px;
   }
-  
-  .logo {
-    width: 80px;
-    height: 80px;
+
+  .home-btn {
+    width: 100%;
+    justify-content: center;
   }
-}
 
-/* Animaciones sutiles */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+  .features-grid {
+    gap: 8px;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  .feature-pill {
+    font-size: 0.82rem;
+    padding: 6px 12px;
   }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.home-bg::before {
-  animation: fadeIn 0.5s ease-out;
-}
-
-.home-content {
-  animation: fadeInUp 0.8s ease-out;
-}
-
-.feature-item {
-  animation: fadeInUp 0.8s ease-out;
-  animation-fill-mode: both;
-}
-
-.feature-item:nth-child(1) {
-  animation-delay: 0.2s;
-}
-
-.feature-item:nth-child(2) {
-  animation-delay: 0.3s;
-}
-
-.feature-item:nth-child(3) {
-  animation-delay: 0.4s;
 }

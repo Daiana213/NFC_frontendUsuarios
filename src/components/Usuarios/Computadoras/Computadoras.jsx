@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import Navbar from '../NavBar/Navbar';
 import Footer from '../../Footer/Footer';
+import { FaDesktop } from 'react-icons/fa';
 import './Computadoras.css';
 
 export default function Computadoras() {
@@ -85,17 +86,24 @@ export default function Computadoras() {
           <div className="computadoras-grid">
             {disponiblesFiltradas.map((c) => (
               <div key={c.id_computadora} className="computadora-card">
+                <div className="computadora-card-header">
+                  <div className="computadora-icon-box">
+                    <FaDesktop />
+                  </div>
+                  <span className="computadora-estado-badge estado-disponible">
+                    <span className="estado-dot"></span> Disponible
+                  </span>
+                </div>
                 <div className="computadora-contenido">
-                  <div className="computadora-estado-badge estado-disponible">Disponible</div>
                   <h3 className="computadora-titulo">{c.marca} {c.modelo}</h3>
                   <div className="computadora-detalles">
                     <div className="computadora-detalle">
-                      <span className="computadora-detalle-label">Sistema Operativo:</span>
+                      <span className="computadora-detalle-label">Sistema Operativo</span>
                       <span className="computadora-detalle-value">{c.sistema_operativo}</span>
                     </div>
                     {c.observacion && (
                       <div className="computadora-detalle">
-                        <span className="computadora-detalle-label">Observación:</span>
+                        <span className="computadora-detalle-label">Observación</span>
                         <span className="computadora-detalle-value">{c.observacion}</span>
                       </div>
                     )}

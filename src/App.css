@@ -145,7 +145,7 @@ a {
 }
 
 a:hover {
-  color: var(--color-texto-inverso);
+  color: var(--azul-secundario);
 }
 
 /* Eliminar márgenes por defecto de headings */
@@ -172,25 +172,113 @@ button:focus {
   outline-offset: 2px;
 }
 
+/* Estilos de botones unificados para toda la aplicación (Azul oscuro sólido, sin degradado) */
+.btn-primary,
+button.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: var(--azul-principal); /* #091465 */
+  color: #ffffff;
+  border: 1px solid var(--azul-principal);
+  border-radius: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(9, 20, 101, 0.2);
+}
+
+.btn-primary:hover:not(:disabled),
+button.btn-primary:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(9, 20, 101, 0.3);
+  background-color: #12217c;
+  border-color: #12217c;
+  color: #ffffff;
+}
+
+.btn-primary:active:not(:disabled),
+button.btn-primary:active:not(:disabled) {
+  transform: translateY(0);
+  background-color: #060e47;
+  box-shadow: 0 2px 4px rgba(9, 20, 101, 0.2);
+}
+
+.btn-primary:disabled,
+button.btn-primary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-secondary,
+button.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: #ffffff;
+  color: var(--azul-principal);
+  border: 2px solid var(--azul-principal);
+  border-radius: 8px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.btn-secondary:hover:not(:disabled),
+button.btn-secondary:hover:not(:disabled) {
+  background-color: rgba(9, 20, 101, 0.06);
+  border-color: #12217c;
+  color: #12217c;
+  transform: translateY(-1px);
+}
+
+.btn-secondary:disabled,
+button.btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+
 /* Inputs base */
 input, textarea, select {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Scrollbar personalizado (opcional) */
+/* Scrollbar limpio y discreto sin fondo de color */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
+
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--azul-muy-claro);
+  background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--azul-claro);
-  border-radius: 5px;
+  background: #cbd5e1;
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--azul-secundario);
+  background: #94a3b8;
 }

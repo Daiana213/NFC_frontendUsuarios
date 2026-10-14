@@ -39,21 +39,28 @@
 }
 
 .turno-btn {
-  display: inline-block;
-  padding: 1rem 2rem;
-  border-radius: 14px;
-  background: linear-gradient(135deg, #ff7a18 0%, #af002d 100%);
-  color: var(--color-texto-inverso);
-  font-weight: 700;
-  font-size: 2rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 32px;
+  border-radius: 8px;
+  background-color: var(--azul-principal);
+  color: #ffffff;
+  border: 1px solid var(--azul-principal);
+  font-weight: 600;
+  font-size: 1.1rem;
   text-decoration: none;
-  box-shadow: 0 10px 24px rgba(175, 0, 45, 0.35);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 6px rgba(9, 20, 101, 0.2);
+  transition: all 0.2s ease;
 }
 
 .turno-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 32px var(--color-texto-inverso);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(9, 20, 101, 0.3);
+  background-color: #12217c;
+  border-color: #12217c;
+  color: #ffffff;
 }
 
 /* Responsive design */

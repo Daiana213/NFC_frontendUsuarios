@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import HeaderAuth from '../HeaderAuth/HeaderAuth';
 import Footer from '../Footer/Footer';
 import './Registro.css';
@@ -112,7 +113,7 @@ export default function Registro() {
 	};
 
 		return (
-			<>
+			<main>
 				<HeaderAuth />
 				<div className="registro-container">
 					<h2 className="registro-title">Registro de Usuario</h2>
@@ -291,8 +292,12 @@ export default function Registro() {
 					</form>
 					{mensaje && <div className="success-message">{mensaje}</div>}
 					{error && <div className="error-message">{error}</div>}
+					<div className="registro-switch">
+						<span>¿Ya tienes una cuenta? </span>
+						<Link to="/login" className="registro-switch-link">Inicia sesión aquí</Link>
+					</div>
 				</div>
 				<Footer />
-			</>
+			</main>
 		);
 }
